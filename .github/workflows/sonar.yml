@@ -14,7 +14,7 @@ jobs:
   sonarqube:
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
       with:
         # Disabling shallow clones is recommended for improving the relevancy of reporting
         fetch-depth: 0
