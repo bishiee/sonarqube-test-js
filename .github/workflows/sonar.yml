@@ -31,13 +31,16 @@ jobs:
           Invoke-WebRequest -Uri https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747.zip -OutFile sonar-scanner.zip
           Expand-Archive -Path sonar-scanner.zip -DestinationPath $env:USERPROFILE
           $env:PATH += ";$env:USERPROFILE\sonar-scanner-4.7.0.2747\bin"
+        shell: pwsh
 
       - name: Run SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
-          %USERPROFILE%\sonar-scanner-4.7.0.2747\bin\sonar-scanner.bat ^
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} ^
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} ^
+          $scannerPath = "${env:USERPROFILE}\sonar-scanner-4.7.0.2747\bin\sonar-scanner.bat"
+          & $scannerPath `
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} `
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} `
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        shell: pwsh
