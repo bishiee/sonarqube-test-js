@@ -37,7 +37,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
-          $env:SYSTEMROOT\sonar-scanner-4.7.0.2747\bin\sonar-scanner.bat `
+          $scannerPath = "$env:SYSTEMROOT\sonar-scanner-4.7.0.2747\bin\sonar-scanner.bat" & $scannerPath `
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} `
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} `
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
