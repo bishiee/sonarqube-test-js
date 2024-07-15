@@ -28,9 +28,9 @@ jobs:
 
       - name: Install SonarQube Scanner
         run: |
-          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747.zip
-          tar -xzf sonar-scanner.zip -C %USERPROFILE%
-          set PATH=%USERPROFILE%\sonar-scanner-4.7.0.2747\bin;%PATH%
+          Invoke-WebRequest -Uri https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747.zip -OutFile sonar-scanner.zip
+          Expand-Archive -Path sonar-scanner.zip -DestinationPath $env:USERPROFILE
+          $env:PATH += ";$env:USERPROFILE\sonar-scanner-4.7.0.2747\bin"
 
       - name: Run SonarQube Scan
         env:
